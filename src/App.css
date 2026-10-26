@@ -1,0 +1,61 @@
+
+
+ul { 
+  list-style: none; 
+}
+
+form { 
+  display: flex; 
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  align-items: center;
+}
+
+.app {
+  max-width: 600px; 
+  margin: 0 auto; 
+  padding: 3rem 1rem
+}
+
+.app h1 {
+  text-align: center;
+  justify-content: center;
+  color: #fff;
+
+}
+
+form input, form button {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 0.7rem;
+  outline: none;
+  font-size: 1rem;
+  min-width: stretch;
+}
+
+form button {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-weight: 600;
+  color: #fff;
+}
+
+form button:hover {
+  opacity: 0.9; 
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 1rem;
+}
