@@ -28,6 +28,18 @@ function App() {
     setIdade('')
   }
 
+  // function handleDelete(index) {
+  //   const novosUsuarios = [...usuarios]
+  //   novosUsuarios.splice(index, 1)
+  //   setUsuarios(novosUsuarios)
+  // }
+
+  function handleDelete(index) {
+  setUsuarios(usuariosAtuais =>
+    usuariosAtuais.filter((_, i) => i !== index)
+  )
+}
+
   return (
 
     <div className="app">
@@ -63,7 +75,7 @@ function App() {
 
       <div className="user-list">
         <h2>Lista de Usuários Cadastrados</h2>
-        <UserCard usuarios={usuarios} />
+        <UserCard usuarios={usuarios} onDelete={handleDelete} />
       </div>
     </div>
 
