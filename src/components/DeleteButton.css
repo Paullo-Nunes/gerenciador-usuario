@@ -1,0 +1,8 @@
+.delete-user-button {
+  color: white;
+  border: none;
+  cursor: pointer;
+  background: rgb(252, 3, 3);
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.5rem;
+}
