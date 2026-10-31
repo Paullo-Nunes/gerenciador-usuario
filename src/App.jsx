@@ -1,15 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import UserCard from './components/UserCard'
 import './App.css'
+import axios from 'axios'
 
 function App() {
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
   const [idade, setIdade] = useState('')
   const [usuarios, setUsuarios] = useState([])
+  const [erroCadastro, setErroCadastro] = useState('')
+
+  useEffect(() => {
+    axios.get('http://localhost:3003/usuarios')
+      .then(response => {
+        setUsuarios(response.data)
+      })
+      .catch(error => {
+        console.error('Erro ao buscar usuários:', error)
+      })
+  }, [])
 
   function handleSubmit(event) {
     event.preventDefault()
+    setErroCadastro('')
 
     const emailNormalizado = email.trim().toLowerCase()
     const emailjaCadastrado = usuarios.some(usuario => usuario.email.toLowerCase() === emailNormalizado)
@@ -18,14 +31,23 @@ function App() {
     const nomejaCadastrado = usuarios.some(usuario => usuario.nome.toLowerCase() === nomeNormalizado)
 
     if (emailjaCadastrado || nomejaCadastrado) {
-      alert('Este usuário já está cadastrado!')
+      setErroCadastro('Este usuário já está cadastrado!')
       return
     }
 
-    setUsuarios([...usuarios, { nome, email, idade }])
-    setNome('')
-    setEmail('')
-    setIdade('')
+    axios.post('http://localhost:3003/usuarios', { nome, email, idade })
+      .then(response => {
+        setUsuarios(usuariosAtuais => [...usuariosAtuais, response.data])
+        setNome('')
+        setEmail('')
+        setIdade('')
+      })
+      .catch(error => {
+        console.error('Erro ao cadastrar usuário:', error)
+        setErroCadastro(
+          error.response?.data?.erro || 'Não foi possível cadastrar o usuário. Tente novamente.'
+        )
+      })
   }
 
   // function handleDelete(index) {
@@ -70,6 +92,7 @@ function App() {
         />
 
         <button type="submit">Cadastrar</button>
+        {erroCadastro && <p role="alert">{erroCadastro}</p>}
 
       </form>
 
